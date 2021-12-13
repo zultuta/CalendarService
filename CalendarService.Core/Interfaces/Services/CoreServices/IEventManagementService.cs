@@ -16,7 +16,7 @@ namespace CalendarService.Core.Interfaces.Services.CoreServices
         Task<IEnumerable<EventWithTimeString>> GetAllEventsAsync();
         Task<IEnumerable<EventWithTimeString>> GetAllEventsByOrganizerAsync(string eventOrganizer);
         Task<EventWithTimeString> GetEventByIdAsync(long eventId);
-        Task<IEnumerable<EventWithTimeString>> GetAllEventsByLocationAsync(string eventOrganizer);
+        Task<IEnumerable<EventWithTimeString>> GetAllEventsByLocationAsync(string location); 
         Task<EventWithTimeString> GetEventByNameAsync(string name);
         Task<IEnumerable<EventWithTimeString>> GetAllEventsSortedByTimeAsync();
     }

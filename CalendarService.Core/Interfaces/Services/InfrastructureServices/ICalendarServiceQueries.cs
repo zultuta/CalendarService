@@ -9,7 +9,6 @@ namespace CalendarService.Core.Interfaces.Services.InfrastructureServices
 {
     public interface ICalendarServiceQueries
     {
-        Task<Event> GetEventWithNoTrackingAsync(long Id);
         Task<Event> GetEventWithTrackingAsync(long Id);
         Task<IEnumerable<EventMembers>> GetEventMembersWithTrackingAsync(long eventId);
         Task<IEnumerable<Event>> GetAllEventsWithNoTrackingAsync();

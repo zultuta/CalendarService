@@ -37,14 +37,14 @@
         </member>
         <member name="M:CalendarService.API.Controllers.CalendarController.GetAllEventsByQueryStrings(System.String,System.Int64,System.String,System.String)">
              <summary>
-             Get all events.
+             Get events by query strings Options: eventOrganizer, id, location, name .
              </summary>
             <response code="200">Returned all events by organizer, id, location, name as specified in query string or empty array</response>
             
         </member>
         <member name="M:CalendarService.API.Controllers.CalendarController.GetSortedEventsAsync">
              <summary>
-             Get all events.
+             Get all events sorted by time in descending order.
              </summary>
             <response code="200">Returned all events by organizer, id, location, name as specified in query string or empty array</response>
             

@@ -25,6 +25,7 @@ namespace CalendarService.Core.Services
         public async Task<long> AddNewEventAsync(EventDTO newEvent)
         {
             Event evnt = new Event();
+            long eventId;
             using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
             {
                 DateTimeOffset dateTimeOffset = DateTimeOffset.FromUnixTimeSeconds(newEvent.Time);
@@ -36,7 +37,7 @@ namespace CalendarService.Core.Services
                 evnt.LastModifiedDate = DateTime.Now;
                 evnt.DateCreated = DateTime.Now;
 
-                var eventId = await _calendarServiceCommads.AddEventAsync(evnt);
+                eventId = await _calendarServiceCommads.AddEventAsync(evnt);
 
                 List<EventMembers> eventMembers = new();
                 foreach (string name in newEvent.Members.Split(','))
@@ -53,11 +54,11 @@ namespace CalendarService.Core.Services
                 await _calendarServiceCommads.AddEventMembersAsync(eventMembers);
                 scope.Complete();
             }
-            return evnt.Id;
+            return eventId;
         }
         public async Task<bool> DeleteEventAsync(long eventId)
         {
-            var evnt = await _calendarServiceQueries.GetEventWithNoTrackingAsync(eventId);
+            var evnt = await _calendarServiceQueries.GetEventWithTrackingAsync(eventId);
             if(evnt == null)
             {
                 return false;
@@ -125,12 +126,12 @@ namespace CalendarService.Core.Services
         }
         public async Task<EventWithTimeString> GetEventByIdAsync(long eventId)   
         {
-            var evnt =  await _calendarServiceQueries.GetEventWithNoTrackingAsync(eventId);
+            var evnt =  await _calendarServiceQueries.GetEventWithTrackingAsync(eventId);
             return evnt == null ? null : MapEventDetails(evnt);
         }
-        public async Task<IEnumerable<EventWithTimeString>> GetAllEventsByLocationAsync(string eventOrganizer)
+        public async Task<IEnumerable<EventWithTimeString>> GetAllEventsByLocationAsync(string location)
         {
-            var allEvents = await _calendarServiceQueries.GetAllEventsByLocationWithNoTrackingAsync(eventOrganizer);
+            var allEvents = await _calendarServiceQueries.GetAllEventsByLocationWithNoTrackingAsync(location);
             List<EventWithTimeString> EventsList = new List<EventWithTimeString>();
             foreach (var evnt in allEvents)
             {

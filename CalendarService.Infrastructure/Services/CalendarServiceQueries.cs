@@ -18,10 +18,6 @@ namespace CalendarService.Infrastructure.Services
         {
             _calendarServiceDbContext = doorAccessDbContext;
         }
-        public async Task<Event> GetEventWithNoTrackingAsync(long Id)
-        {
-            return await _calendarServiceDbContext.Event.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id);
-        }
         public async Task<Event> GetEventWithTrackingAsync(long Id)
         {
             return await _calendarServiceDbContext.Event.FirstOrDefaultAsync(x => x.Id == Id);
